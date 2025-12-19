@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Monitor Service</title>
+  <meta name="description" content="Monitor URLs for new posts and get Slack notifications">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <h1 class="logo">
+          <span class="icon">🔔</span>
+          URL Monitor
+        </h1>
+        <p class="tagline">실시간 웹사이트 모니터링 & Slack 알림</p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Add Monitor Form -->
+      <section class="card form-card">
+        <h2 class="card-title">새 모니터 추가</h2>
+        <form id="monitorForm" class="monitor-form">
+          <div class="form-group">
+            <label for="url" class="form-label">
+              <span class="label-icon">🔗</span>
+              모니터링 URL
+            </label>
+            <input type="url" id="url" name="url" class="form-input" placeholder="https://example.com/posts" required>
+          </div>
+
+          <div class="form-group">
+            <label for="interval" class="form-label">
+              <span class="label-icon">⏰</span>
+              업데이트 주기
+            </label>
+            <select id="interval" name="interval" class="form-select" required>
+              <option value="hourly">매시간</option>
+              <option value="daily" selected>매일</option>
+              <option value="weekly">매주</option>
+              <option value="every-5-min">5분마다 (테스트용)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="slackWebhook" class="form-label">
+              <span class="label-icon">💬</span>
+              Slack Webhook URL (선택사항)
+            </label>
+            <input type="url" id="slackWebhook" name="slackWebhook" class="form-input"
+              placeholder="https://hooks.slack.com/services/...">
+            <small class="form-hint">
+              비워두면 콘솔에 로그가 출력됩니다
+            </small>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span class="btn-icon">➕</span>
+            모니터 추가
+          </button>
+        </form>
+      </section>
+
+      <!-- Active Monitors -->
+      <section class="card monitors-card">
+        <div class="card-header">
+          <h2 class="card-title">활성 모니터</h2>
+          <button id="refreshBtn" class="btn btn-secondary btn-sm">
+            <span class="btn-icon">🔄</span>
+            새로고침
+          </button>
+        </div>
+
+        <div id="monitorsList" class="monitors-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            <p>모니터 로딩 중...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Made with ❤️ for seamless monitoring</p>
+    </footer>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Modal for New Posts -->
+  <div id="newPostsModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">
+          <span>✨</span>
+          새로운 게시글 발견!
+        </h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="modalPostList" class="post-list"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closeModal()">
+          <span class="btn-icon">✓</span>
+          확인
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
