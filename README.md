@@ -108,16 +108,6 @@ url-monitor-service/
 - **Notifications**: Slack Webhook API
 - **Frontend**: Vanilla JavaScript, Modern CSS
 
-## 📝 예제: KOFIA 채용공고 모니터링
-
-```javascript
-// 모니터 설정
-URL: https://www.kofia.or.kr/brd/m_96/list.do
-업데이트 주기: 매일
-Slack Webhook: (선택사항)
-```
-
-서비스가 매일 오전 9시에 자동으로 해당 페이지를 확인하고, 새로운 채용공고가 올라오면 Slack으로 알림을 보냅니다.
 
 ## 🐛 문제 해결
 
